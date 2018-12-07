@@ -30,9 +30,8 @@ h5 {
 }
 
 .search-result {
-    display: flex;
-    /* flex-direction: column; */
-    align-items: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     justify-content: center;
     background-color: #dbe2ef;
     padding: 10px 50px 10px 50px;
@@ -44,13 +43,31 @@ h5 {
     width: 20vw;
     height: 20vh;
     background-color: #f9f7f7;
-    margin: 2.5px;
+    margin: 1px;
     padding: 5px 20px 5px 20px;
 }
 
 #search {
     padding: 10px;
 }
+
+#addname {
+    border: none;
+    padding: 10px;
+    width: 90%;
+}
+
+.voting {
+    background-color: #f9f7f7;
+    margin: 1px;
+}
+
+.picked {
+    background-color: #3f72af;
+    margin: 1px;
+}
+
+
 
 .btn {
     background-color: #3f72af;

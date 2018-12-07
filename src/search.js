@@ -15,10 +15,18 @@ export class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            highlighted: ''
+            picked: false,
+            participants: [
+                {id: 1},
+                {id: 2},
+                {id: 3},
+                {id: 4}
+            ]
         };
         this.handleSearchInput = this.handleSearchInput.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleVote = this.handleVote.bind(this);
+        this.addParticipant = this.addParticipant.bind(this);
         let address;
     }
     handleSearchInput(e) {
@@ -36,6 +44,21 @@ export class Search extends React.Component {
             }).catch(err => { console.log(err); });
     }
 
+    handleVote(e) {
+        console.log("clicked! ", e);
+        e.classList.add("picked");
+    }
+    addParticipant() {
+        let oldId = this.state.participants[this.state.participants.length - 1].id;
+        let newId = oldId++;
+        let newParticipants = this.state.participants.concat({
+            id: newId
+        });
+        this.setState(
+            { participants:  newParticipants}
+        )
+    }
+
     render() {
         if (this.state.searchResultsArr === undefined || this.state.searchResultsArr === 'no results') {
             return (
@@ -50,6 +73,7 @@ export class Search extends React.Component {
                     <input id="search" name="search" type="text" placeholder="search for a place to eat" onChange={ this.handleSearchInput }   />
                     <button className="btn" onClick={ this.handleClick } >Search</button>
                     <div className="search-result">
+                        <div className="single-search-result blank"></div>
                         { this.state.searchResultsArr.map(
                             venue => (
                                 <div className="single-search-result" key={venue.venue.id}>
@@ -60,7 +84,22 @@ export class Search extends React.Component {
                                 </div>
                             )
                         )}
+
+                        {this.state.participants.map ((p, idx) => {
+                            return(
+                                <React.Fragment key={idx}>
+                                    <div className="voting">
+                                    <input id="addname" name="search" type="text" placeholder="Add your name"  onChange={ this.handleSearchInput }  />
+                                    </div>
+                                    <div className={this.state.picked ? 'picked': "voting"}   onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'picked': "voting"}   onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'picked': "voting"}   onClick={(e) => this.handleVote(e.target)}></div>
+                                </React.Fragment>
+                            )
+
+                        })}
                     </div>
+                    <button className="btn" onClick={ this.addParticipant }>Add participant</button>
                 </div>
             );
         }
