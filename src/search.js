@@ -9,7 +9,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-
+let col1 = 0;
+let col2 = 0;
+let col3 = 0;
 
 export class Search extends React.Component {
     constructor(props) {
@@ -27,6 +29,7 @@ export class Search extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleVote = this.handleVote.bind(this);
         this.addParticipant = this.addParticipant.bind(this);
+        this.checkWinner = this.checkWinner.bind(this);
         let address;
     }
     handleSearchInput(e) {
@@ -47,6 +50,19 @@ export class Search extends React.Component {
     handleVote(e) {
         console.log("clicked! ", e);
         e.classList.add("picked");
+        this.checkWinner(e);
+    }
+    checkWinner(e) {
+        console.log("checked!", e);
+        if (e.classList.contains('1')) {
+            col1++;
+        } else if (e.classList.contains('2')) {
+            col2++;
+        } else if (e.classList.contains('3')) {
+            col3++;
+        }
+        console.log(col1, col2, col3);
+
     }
     addParticipant() {
         let oldId = this.state.participants[this.state.participants.length - 1].id;
@@ -74,8 +90,7 @@ export class Search extends React.Component {
                     <button className="btn" onClick={ this.handleClick } >Search</button>
                     <div className="search-result">
                         <div className="single-search-result blank"></div>
-                        { this.state.searchResultsArr.map(
-                            venue => (
+                        { this.state.searchResultsArr.map( (venue, idx) => (
                                 <div className="single-search-result" key={venue.venue.id}>
                                     <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
                                         <h3>{venue.venue.name} </h3>
@@ -91,9 +106,9 @@ export class Search extends React.Component {
                                     <div className="voting">
                                     <input id="addname" name="search" type="text" placeholder="Add your name"  onChange={ this.handleSearchInput }  />
                                     </div>
-                                    <div className={this.state.picked ? 'picked': "voting"}   onClick={(e) => this.handleVote(e.target)}></div>
-                                    <div className={this.state.picked ? 'picked': "voting"}   onClick={(e) => this.handleVote(e.target)}></div>
-                                    <div className={this.state.picked ? 'picked': "voting"}   onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'picked 1': 'voting 1'} id={idx +1} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'picked 2': 'voting 2'} id={idx +1} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'picked 3': 'voting 3'} id={idx +1}  onClick={(e) => this.handleVote(e.target)}></div>
                                 </React.Fragment>
                             )
 
