@@ -40,7 +40,6 @@ h5 {
 }
 
 .single-search-result {
-    width: 20vw;
     height: 20vh;
     background-color: #f9f7f7;
     margin: 1px;
@@ -55,6 +54,8 @@ h5 {
     border: none;
     padding: 10px;
     width: 90%;
+    background-color: #f9f7f7;
+
 }
 
 .voting {

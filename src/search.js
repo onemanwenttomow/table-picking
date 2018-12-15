@@ -77,7 +77,7 @@ export class Search extends React.Component {
                         { this.state.searchResultsArr.map(
                             venue => (
                                 <div className="single-search-result" key={venue.venue.id}>
-                                    <a href={`https://www.google.com/search?q=Markthalle+Neun+${this.address}`} >
+                                    <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
                                         <h3>{venue.venue.name} </h3>
                                     </a>
                                     <h5>{venue.venue.categories[0].name} </h5>
