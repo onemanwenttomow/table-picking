@@ -58,6 +58,10 @@ h5 {
 
 }
 
+.winner {
+    background-color: pink;
+}
+
 .voting {
     background-color: #f9f7f7;
     margin: 1px;
