@@ -61,7 +61,7 @@ export class Search extends React.Component {
     }
 
     handleVote(e) {
-        let row = e.classList[3];
+        let row = e.classList[4];
         let rowToCheck = document.getElementsByClassName(row);
         for (let i = 0; i < rowToCheck.length; i++) {
             if (rowToCheck[i].classList.contains('picked')) {
@@ -114,10 +114,14 @@ export class Search extends React.Component {
             box[i].classList.add('voting');
             box[i].classList.remove('picked');
         }
-        let winnersToRemove = document.getElementsByClassName('single-search-result');
-        for (let i = 0; i < winnersToRemove.length; i++) {
-            winnersToRemove[i].classList.remove('winner');
+
+        for (let i = 0; i < 3; i++) {
+            document.getElementsByClassName('winnerFlip0')[0].classList.remove('flip-card-inner');
+            document.getElementsByClassName('winnerFlip1')[0].classList.remove('flip-card-inner');
+            document.getElementsByClassName('winnerFlip2')[0].classList.remove('flip-card-inner');
         }
+
+
         let inputFields = document.getElementsByClassName('userName');
         for (let j= 0; j < inputFields.length; j++) {
             inputFields[j].value = "";
@@ -149,7 +153,7 @@ export class Search extends React.Component {
                         <div className="single-search-result blank"></div>
                         { this.state.searchResultsArr.map( (venue, idx) => (
                                 <React.Fragment key={venue.venue.id}>
-                                <div className="flip-card">
+                                <div className="flip-card fixedWidth">
                                     <div className={'winnerFlip'+ idx}>
                                         <div className={'flip-card-front single-search-result restaurant' + idx} >
                                             <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
@@ -157,7 +161,7 @@ export class Search extends React.Component {
                                             </a>
                                             <h5>{venue.venue.categories[0].name} </h5>
                                         </div>
-                                        <div className={'flip-card-back single-search-result restaurant' + idx} >
+                                        <div className={'fixedWidth flip-card-back single-search-result restaurant' + idx} >
                                             <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
                                                 <h3>{venue.venue.name} </h3>
                                             </a>
@@ -175,9 +179,9 @@ export class Search extends React.Component {
                                     <div className="voting">
                                     <input className="userName" id="addname" name="search" type="text" placeholder="Add your name"  onChange={ this.handleSearchInput }  />
                                     </div>
-                                    <div className={this.state.picked ? 'box picked 1 row' + idx: 'box voting 1 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
-                                    <div className={this.state.picked ? 'box picked 2 row' + idx: 'box voting 2 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
-                                    <div className={this.state.picked ? 'box picked 3 row' + idx: 'box voting 3 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'fixedWidth box picked 1 row' + idx: 'fixedWidth box voting 1 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'fixedWidth box picked 2 row' + idx: 'fixedWidth box voting 2 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'fixedWidth box picked 3 row' + idx: 'fixedWidth box voting 3 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
                                 </React.Fragment>
                             )
 

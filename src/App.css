@@ -110,15 +110,20 @@ h5 {
 
 
 
+.winnerFlip0 {
+    width: 100%;
+}
 
 .flip-card {
   background-color: transparent;
   perspective: 1000px;
+  overflow: hidden;
 }
 
 .flip-card-inner {
   position: relative;
   text-align: center;
+
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
@@ -130,6 +135,7 @@ h5 {
 .flip-card-front, .flip-card-back {
   position: absolute;
   backface-visibility: hidden;
+  width: 85%;
 }
 
 .flip-card-back {
