@@ -107,3 +107,32 @@ h5 {
 .App-link {
   color: #61dafb;
 }
+
+
+
+
+.flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  background-color: pink;
+  transform: rotateY(180deg);
+}

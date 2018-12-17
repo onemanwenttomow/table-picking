@@ -49,7 +49,6 @@ export class Search extends React.Component {
     }
 
     handleVote(e) {
-        console.log("clicked! ", e);
         let row = e.classList[3];
         let rowToCheck = document.getElementsByClassName(row);
         for (let i = 0; i < rowToCheck.length; i++) {
@@ -69,20 +68,19 @@ export class Search extends React.Component {
         this.checkWinner(e);
     }
     checkWinner(e) {
-        console.log("checked!", e);
         if (col1 > 1 || col2 > 1 || col3 > 1) {
             if (col1 > col2 && col1 > col3) {
-                document.getElementsByClassName('restaurant0')[0].classList.add('winner');
-                document.getElementsByClassName('restaurant1')[0].classList.remove('winner');
-                document.getElementsByClassName('restaurant2')[0].classList.remove('winner');
+                document.getElementsByClassName('winnerFlip0')[0].classList.add('flip-card-inner');
+                document.getElementsByClassName('winnerFlip1')[0].classList.remove('flip-card-inner');
+                document.getElementsByClassName('winnerFlip2')[0].classList.remove('flip-card-inner');
             } else if (col2 > col1 && col2 > col3) {
-                document.getElementsByClassName('restaurant1')[0].classList.add('winner');
-                document.getElementsByClassName('restaurant0')[0].classList.remove('winner');
-                document.getElementsByClassName('restaurant2')[0].classList.remove('winner');
+                document.getElementsByClassName('winnerFlip1')[0].classList.add('flip-card-inner');
+                document.getElementsByClassName('winnerFlip0')[0].classList.remove('flip-card-inner');
+                document.getElementsByClassName('winnerFlip2')[0].classList.remove('flip-card-inner');
             } else if (col3 > col1 && col3 > col1) {
-                document.getElementsByClassName('restaurant2')[0].classList.add('winner');
-                document.getElementsByClassName('restaurant0')[0].classList.remove('winner');
-                document.getElementsByClassName('restaurant1')[0].classList.remove('winner');
+                document.getElementsByClassName('winnerFlip2')[0].classList.add('flip-card-inner');
+                document.getElementsByClassName('winnerFlip0')[0].classList.remove('flip-card-inner');
+                document.getElementsByClassName('winnerFlip1')[0].classList.remove('flip-card-inner');
             }
         }
 
@@ -139,12 +137,24 @@ export class Search extends React.Component {
                     <div className="search-result">
                         <div className="single-search-result blank"></div>
                         { this.state.searchResultsArr.map( (venue, idx) => (
-                                <div className={'single-search-result restaurant' + idx} key={venue.venue.id}>
-                                    <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
-                                        <h3>{venue.venue.name} </h3>
-                                    </a>
-                                    <h5>{venue.venue.categories[0].name} </h5>
+                                <React.Fragment key={venue.venue.id}>
+                                <div className="flip-card">
+                                    <div className={'winnerFlip'+ idx}>
+                                        <div className={'flip-card-front single-search-result restaurant' + idx} >
+                                            <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
+                                                <h3>{venue.venue.name} </h3>
+                                            </a>
+                                            <h5>{venue.venue.categories[0].name} </h5>
+                                        </div>
+                                        <div className={'flip-card-back single-search-result restaurant' + idx} >
+                                            <a href={`https://www.google.com/search?q=${venue.venue.name}+${this.address}`} >
+                                                <h3>{venue.venue.name} </h3>
+                                            </a>
+                                            <h5>{venue.venue.categories[0].name} </h5>
+                                        </div>
+                                    </div>
                                 </div>
+                                </React.Fragment>
                             )
                         )}
 
