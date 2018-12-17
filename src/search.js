@@ -31,11 +31,23 @@ export class Search extends React.Component {
         this.addParticipant = this.addParticipant.bind(this);
         this.checkWinner = this.checkWinner.bind(this);
         this.reset = this.reset.bind(this);
+        this.enterFunction = this.enterFunction.bind(this);
+    }
+    componentDidMount(){
+        document.addEventListener("keydown", this.enterFunction, false);
+    }
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.enterFunction, false);
     }
     handleSearchInput(e) {
         this.address = e.target.value;
         if (this.address.length >= 1) {
             this.setState({ buttonDisabled: false })
+        }
+    }
+    enterFunction(event){
+        if(event.keyCode === 13) {
+            this.handleClick();
         }
     }
     handleClick() {
@@ -83,7 +95,6 @@ export class Search extends React.Component {
                 document.getElementsByClassName('winnerFlip1')[0].classList.remove('flip-card-inner');
             }
         }
-
     }
     reset() {
         col1 = 0;
