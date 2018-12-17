@@ -31,7 +31,6 @@ export class Search extends React.Component {
         this.addParticipant = this.addParticipant.bind(this);
         this.checkWinner = this.checkWinner.bind(this);
         this.reset = this.reset.bind(this);
-        let address;
     }
     handleSearchInput(e) {
         this.address = e.target.value;
@@ -51,6 +50,13 @@ export class Search extends React.Component {
 
     handleVote(e) {
         console.log("clicked! ", e);
+        let row = e.classList[3];
+        let rowToCheck = document.getElementsByClassName(row);
+        for (let i = 0; i < rowToCheck.length; i++) {
+            if (rowToCheck[i].classList.contains('picked')) {
+                return;
+            }
+        }
         if (e.classList.contains('1') && e.classList.contains('voting')) {
             col1++;
         } else if (e.classList.contains('2')  && e.classList.contains('voting')) {
@@ -66,18 +72,15 @@ export class Search extends React.Component {
         console.log("checked!", e);
         if (col1 > 1 || col2 > 1 || col3 > 1) {
             if (col1 > col2 && col1 > col3) {
-                let winner = document.getElementsByClassName('restaurant0');
-                winner[0].classList.add('winner');
+                document.getElementsByClassName('restaurant0')[0].classList.add('winner');
                 document.getElementsByClassName('restaurant1')[0].classList.remove('winner');
                 document.getElementsByClassName('restaurant2')[0].classList.remove('winner');
             } else if (col2 > col1 && col2 > col3) {
-                let winner = document.getElementsByClassName('restaurant1');
-                winner[0].classList.add('winner');
+                document.getElementsByClassName('restaurant1')[0].classList.add('winner');
                 document.getElementsByClassName('restaurant0')[0].classList.remove('winner');
                 document.getElementsByClassName('restaurant2')[0].classList.remove('winner');
             } else if (col3 > col1 && col3 > col1) {
-                let winner = document.getElementsByClassName('restaurant2');
-                winner[0].classList.add('winner');
+                document.getElementsByClassName('restaurant2')[0].classList.add('winner');
                 document.getElementsByClassName('restaurant0')[0].classList.remove('winner');
                 document.getElementsByClassName('restaurant1')[0].classList.remove('winner');
             }
@@ -117,9 +120,7 @@ export class Search extends React.Component {
         let newParticipants = this.state.participants.concat({
             id: newId
         });
-        this.setState(
-            { participants:  newParticipants}
-        )
+        this.setState({ participants: newParticipants })
     }
 
     render() {
@@ -153,9 +154,9 @@ export class Search extends React.Component {
                                     <div className="voting">
                                     <input className="userName" id="addname" name="search" type="text" placeholder="Add your name"  onChange={ this.handleSearchInput }  />
                                     </div>
-                                    <div className={this.state.picked ? 'box picked 1': 'box voting 1'} id={idx +1} onClick={(e) => this.handleVote(e.target)}></div>
-                                    <div className={this.state.picked ? 'box picked 2': 'box voting 2'} id={idx +1} onClick={(e) => this.handleVote(e.target)}></div>
-                                    <div className={this.state.picked ? 'box picked 3': 'box voting 3'} id={idx +1}  onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'box picked 1 row' + idx: 'box voting 1 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'box picked 2 row' + idx: 'box voting 2 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
+                                    <div className={this.state.picked ? 'box picked 3 row' + idx: 'box voting 3 row' + idx} onClick={(e) => this.handleVote(e.target)}></div>
                                 </React.Fragment>
                             )
 
